@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "W2L20", "W2L20.csproj", "{5568D916-BE9F-461A-AE1A-813505786ECE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "W2L20", "W2L20\W2L20.csproj", "{5568D916-BE9F-461A-AE1A-813505786ECE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderManagement.App", "..\OrderManagement.App\OrderManagement.App.csproj", "{570A80E4-D98D-46CB-AE99-790E2EC91403}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderManagement.App", "OrderManagement.App\OrderManagement.App.csproj", "{570A80E4-D98D-46CB-AE99-790E2EC91403}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderManagement.Domain", "..\OrderManagement.Domain\OrderManagement.Domain.csproj", "{A2CCB8F4-0FAB-4421-8C68-614172DF7746}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderManagement.Domain", "OrderManagement.Domain\OrderManagement.Domain.csproj", "{A2CCB8F4-0FAB-4421-8C68-614172DF7746}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
