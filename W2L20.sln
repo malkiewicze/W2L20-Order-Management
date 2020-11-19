@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "W2L20", "W2L20\W2L20.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderManagement.App", "OrderManagement.App\OrderManagement.App.csproj", "{570A80E4-D98D-46CB-AE99-790E2EC91403}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderManagement.Domain", "OrderManagement.Domain\OrderManagement.Domain.csproj", "{A2CCB8F4-0FAB-4421-8C68-614172DF7746}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderManagement.Domain", "OrderManagement.Domain\OrderManagement.Domain.csproj", "{A2CCB8F4-0FAB-4421-8C68-614172DF7746}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderManagement.Tests", "OrderManagement.Tests\OrderManagement.Tests.csproj", "{46DC3F01-ECCB-4490-83D7-595E4ED62A13}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{A2CCB8F4-0FAB-4421-8C68-614172DF7746}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2CCB8F4-0FAB-4421-8C68-614172DF7746}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2CCB8F4-0FAB-4421-8C68-614172DF7746}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46DC3F01-ECCB-4490-83D7-595E4ED62A13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46DC3F01-ECCB-4490-83D7-595E4ED62A13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46DC3F01-ECCB-4490-83D7-595E4ED62A13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46DC3F01-ECCB-4490-83D7-595E4ED62A13}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -9,136 +9,44 @@ namespace OrderManagement.App.Concrete
 {
     public class OrdersService : BaseService<Order>
     {
-        public Order CreateNewOrder()
+        
+        public bool CheckEndDate(DateTime endDate, DateTime startDate)
         {
-            Order order = new Order();
-
-            order.Id = SetTheOrderNumber();
-
-            order.Name = SetName();
-
-            order.StartDate = SetTheStartDate();
-
-            order.EndDate = SetTheEndDate(order);
-
-            order.Address = SetTheAddress();
-
-            order.ContactDetails = SetTheContactDetails(order);
-
-            order.OrderDescription = SetTheDescription();
-
-            order.OrderValue = SetTheOrderValue();
-
-            order.OrderStatus = SetTheOrderStatus();
-
-            order.NumberOfEmployees = SetEmployees();
-
-            order.Duration = order.EndDate - order.StartDate;
-
-            Items.Add(order);
-
-            return order;
-        }
-
-
-        private int SetTheOrderNumber()
-        {
-            int orderNum = GetLastId();
-            orderNum = orderNum + 1;
-            Console.WriteLine($"Numer zlecenia: {orderNum}");
-            return orderNum;
-        }
-
-        private string SetName()
-        {
-            Console.WriteLine("Podaj imię i nazwisko Klienta: ");
-            string name = Console.ReadLine();
-            return name;
-        }
-
-
-        private DateTime SetTheStartDate()
-        {
-            Console.WriteLine("Podaj datę rozpoczęcia zlecenia: dd/mm/rrrr");
-            DateTime startDate = DateTime.Parse(Console.ReadLine());
-            return startDate;
-        }
-
-
-        private DateTime SetTheEndDate(Order order)
-        {
-            Console.WriteLine("Podaj datę zakończenia zlecenia: dd/mm/rrrr");
-            DateTime endDate = DateTime.Parse(Console.ReadLine());
-            if (endDate < order.StartDate)
-            {
-                Console.WriteLine("Wprowadzona data zakończenia zlecenia nie może być wcześniejsza niż rozpoczęcia.");
-            }
+            if (endDate < startDate)
+                return false;
             else
-            {
-                order.EndDate = endDate;
-            }
-            return endDate;
+                return true;
         }
 
-        private string SetTheAddress()
-        {
-            Console.WriteLine("Podaj adres zlecenia: miasto/ulica/numer domu");
-            string orderAddress = Console.ReadLine();
-            return orderAddress;
-        }
-
-
-        private string SetTheContactDetails(Order order)
+        public bool CheckContactDetails(string contact)
         {
             string pattern = @"(?<!\w)(\(?(\+|00)?48\)?)?[ -]?\d{3}[ -]?\d{3}[ -]?\d{3}(?!\w)";
-            Console.WriteLine("Podaj dane kontaktowe:");
-            string contact = Console.ReadLine();
             Regex regexNum = new Regex(pattern);
             if (regexNum.IsMatch(contact))
-            {
-                order.ContactDetails = contact;
-            }
+                return true;
             else
-            {
-                Console.WriteLine("Błędny format numeru telefonu.");
-            }
-            return contact;
+
+                return false;
         }
 
-
-        private string SetTheDescription()
+        public bool CheckValue(double value)
         {
-            Console.WriteLine("Podaj szczegóły zlecenia:");
-            string orderDetails = Console.ReadLine();
-            return orderDetails;
+            if (value <= 0)
+                return false;
+            else
+                return true;
         }
 
-
-        private double SetTheOrderValue()
-        {
-            Console.WriteLine("Podaj wartość zlecenia:");
-            double orderValue = Double.Parse(Console.ReadLine());
-            if (orderValue <= 0)
-            {
-                Console.WriteLine("Wartość zlecenia musi być większa od 0.");
-            }
-            return orderValue;
-        }
-
-
-        private string SetTheOrderStatus()
+        public string SetTheOrderStatus(int operation)
         {
             string[] status = new string[3] { "W kolejce", "W realizacji", "Zakończone" };
             string orderStatus;
-            Console.WriteLine($"Podaj status zlecenia: \r\n 1. W kolejce \r\n 2.W realizacji \r\n 3.Zakończone");
-            var operation = Int32.Parse(Console.ReadLine());
             for (int i = 0; i < status.Length; i++)
             {
                 var z = i + 1;
                 if (operation == z)
                 {
                     orderStatus = status[i];
-                    Console.WriteLine($"{status[i]}");
                     return orderStatus;
                 }
             }
@@ -146,19 +54,25 @@ namespace OrderManagement.App.Concrete
 
         }
 
-
-        private int SetEmployees()
+        public bool CheckEmployees(int numberEmployees)
         {
-            Console.WriteLine("Podaj ilu pracowników wykonywało zlecenie:");
-            int numberEmployees = Int32.Parse(Console.ReadLine());
             if (numberEmployees <= 0)
-            {
-                Console.WriteLine("Liczba pracowników musi być większa od 0!");
-            }
-            return numberEmployees;
-
+                return false;
+            else
+                return true;
         }
 
+        public bool StatusToCancel(int id)
+        {
+            Order canceledOrder = GetItemById(id);
+            if (canceledOrder.OrderStatus == "W realizacji" || canceledOrder.OrderStatus == "W kolejce")
+            {
+                canceledOrder.OrderStatus = "Anulowane";
+                return true;
+            }
+            else
+                return false;
+        }
 
     }
 }

@@ -3,6 +3,7 @@ using OrderManagement.Domain.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace OrderManagement.App.Common
@@ -48,5 +49,11 @@ namespace OrderManagement.App.Common
             }
             return lastId;
         }
+
+        public T GetItemById(int id)
+        {
+            return Items.Find(x => x.Id == id);
+        }
+
     }
 }

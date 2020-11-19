@@ -12,5 +12,7 @@ namespace OrderManagement.App.Abstract
         void AddNewItem(T obj);
         List<T> ShowItems();
         int GetLastId();
+        T GetItemById(int id);
+       
     }
 }

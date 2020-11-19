@@ -15,5 +15,28 @@ namespace OrderManagement.Domain.Entity
         public double OrderValue { get; set; }
         public string OrderStatus { get; set; }
         public int NumberOfEmployees { get; set; }
+
+        public Order()
+        {
+
+        }
+        public Order(int id, string name, DateTime startDate, DateTime endDate, TimeSpan duration, string address, string contactDetails, string orderDescription,
+            double orderValue, string orderStatus, int numberOfEmployees)
+        {
+            Id = id;
+            Name = name;
+            StartDate = startDate;
+            EndDate = endDate;
+            Address = address;
+            Duration = duration;
+            ContactDetails = contactDetails;
+            OrderDescription = orderDescription;
+            OrderValue = orderValue;
+            OrderStatus = orderStatus;
+            NumberOfEmployees = numberOfEmployees;
+
+        }
     }
+
+
 }

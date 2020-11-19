@@ -15,6 +15,7 @@ namespace W2L20
             FiltersService filtersService = new FiltersService();
             OrdersService ordersService = new OrdersService();
             OrdersManager ordersManager = new OrdersManager();
+            FiltersManager filtersManager = new FiltersManager();
             var orderList = ordersService.GetAllItems();
 
             Console.WriteLine("Witaj w aplikacji do zarządzania zleceniami.");
@@ -27,18 +28,18 @@ namespace W2L20
                 switch (operation.KeyChar)
                 {
                     case '1':
-                        var key = ordersService.CreateNewOrder();
+                        var key = ordersManager.CreateNewOrder();
                         break;
                     case '2':
-                        var key1 = ordersManager.CancelOrder(orderList);
+                        var key1 = ordersManager.CancelOrder();
                         break;
                     case '3':
-                        var key2 = ordersManager.SearchOrder(orderList);
+                        var key2 = ordersManager.SearchOrder();
                         break;
                     case '4':
                         var key3 = filtersService.ShowItems();
                         var choosenFilter = Console.ReadKey();
-                        filtersService.ChooseFilter(choosenFilter, orderList);
+                        filtersManager.ChooseFilter(choosenFilter, orderList);
                         break;
                     default:
                         Console.WriteLine("Wybrana operacja nie istnieje.");
