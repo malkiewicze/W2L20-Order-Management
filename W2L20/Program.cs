@@ -12,15 +12,15 @@ namespace W2L20
         {
 
             MenuOptionsService menuOptionsList = new MenuOptionsService();
-            FiltersService filtersService = new FiltersService();
             OrdersService ordersService = new OrdersService();
-            OrdersManager ordersManager = new OrdersManager();
-            FiltersManager filtersManager = new FiltersManager();
-            var orderList = ordersService.GetAllItems();
+            FiltersService filtersService = new FiltersService();
+            OrdersManager ordersManager = new OrdersManager(ordersService);
+            FiltersManager filtersManager = new FiltersManager(ordersService);
 
             Console.WriteLine("Witaj w aplikacji do zarządzania zleceniami.");
             while (true)
             {
+
                 Console.WriteLine("Wybierz co chcesz zrobić:");
 
                 menuOptionsList.ShowItems();
@@ -39,7 +39,7 @@ namespace W2L20
                     case '4':
                         var key3 = filtersService.ShowItems();
                         var choosenFilter = Console.ReadKey();
-                        filtersManager.ChooseFilter(choosenFilter, orderList);
+                        filtersManager.ChooseFilter(choosenFilter);
                         break;
                     default:
                         Console.WriteLine("Wybrana operacja nie istnieje.");

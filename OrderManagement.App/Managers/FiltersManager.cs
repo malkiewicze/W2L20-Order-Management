@@ -11,16 +11,17 @@ namespace OrderManagement.App.Managers
     {
         private FiltersService _filtersService;
         private OrdersService _ordersService;
-        private List<Order> orderList;
+        private List<Order> _ordersList;
 
-        public FiltersManager()
+
+        public FiltersManager(OrdersService ordersService)
         {
             _filtersService = new FiltersService();
-            _ordersService = new OrdersService();
-            orderList = _ordersService.GetAllItems();
+            _ordersService = ordersService;
+            _ordersList = _ordersService.GetAllItems();
         }
 
-        public void ChooseFilter(ConsoleKeyInfo choosenFilter, List<Order> orderList)
+        public void ChooseFilter(ConsoleKeyInfo choosenFilter)
         {
 
             var filterNumber = choosenFilter;
@@ -55,43 +56,66 @@ namespace OrderManagement.App.Managers
                     break;
             }
         }
-
-        private object EnterEmployeesFilter()
+        public List<Order> EnterEmployeesFilter()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Podaj filtr: Ilość pracowników wykonujących zlecenie");
+            int employees = Int32.Parse(Console.ReadLine());
+            var filterCriterion = "NumberOfEmployees";
+            List<Order> resultList = _filtersService.FilterBy(filterCriterion, employees, _ordersList);
+            return resultList;
         }
 
-        private object EnterStatusFilter()
+        public List<Order> EnterStatusFilter()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Podaj filtr: Status zlecenia");
+            string status = Console.ReadLine();
+            var filterCriterion = "OrderStatus";
+            List<Order> resultList = _filtersService.FilterBy(filterCriterion, status, _ordersList);
+            return resultList;
         }
 
-        private object EnterValueFilter()
+        public List<Order> EnterValueFilter()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Podaj filtr: Wartość zlecenia");
+            double value = Double.Parse(Console.ReadLine());
+            var filterCriterion = "OrderValue";
+            List<Order> resultList = _filtersService.FilterBy(filterCriterion, value, _ordersList);
+            return resultList;
         }
 
-        private object EnterAdressFilter()
+        public List<Order> EnterAdressFilter()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Podaj filtr: Adres");
+            string address = Console.ReadLine();
+            var filterCriterion = "Address";
+            List<Order> resultList = _filtersService.FilterBy(filterCriterion, address, _ordersList);
+            return resultList;
         }
 
-        private object EnterDurationFilter()
+        public List<Order> EnterDurationFilter()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Podaj filtr: Czas trwania zlecenia");
+            TimeSpan duration = TimeSpan.Parse(Console.ReadLine());
+            var filterCriterion = "Duration";
+            List<Order> resultList = _filtersService.FilterBy(filterCriterion, duration, _ordersList);
+            return resultList;
         }
 
-        private object EnterEndDateFilter()
+        public List<Order> EnterEndDateFilter()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Podaj filtr: Data końcowa");
+            DateTime endDate = DateTime.Parse(Console.ReadLine());
+            string filterCriterion = "EndDate";
+            List<Order> resultList = _filtersService.FilterBy(filterCriterion, endDate, _ordersList);
+            return resultList;
         }
 
-        private object EnterStartDateFilter()
+        public List<Order> EnterStartDateFilter()
         {
             Console.WriteLine("Podaj filtr: Data początkowa");
-            DateTime endDate = DateTime.Parse(Console.ReadLine());
+            DateTime startDate = DateTime.Parse(Console.ReadLine());
             string filterCriterion = "StartDate";
-            List<Order> resultList = _filtersService.FilterBy(filterCriterion, endDate, orderList);
+            List<Order> resultList = _filtersService.FilterBy(filterCriterion, startDate, _ordersList);
             return resultList;
         }
 
@@ -101,36 +125,9 @@ namespace OrderManagement.App.Managers
             string input = Console.ReadLine();
             string name = input.ToUpper();
             string filterCriterion = "Name";
-            List<Order> resultList = _filtersService.FilterBy(filterCriterion, name, orderList);
+            List<Order> resultList = _filtersService.FilterBy(filterCriterion, name, _ordersList);
             return resultList;
         }
 
-
-
-        //public List<Order> EnterDurationFilter()
-        //{
-        //    Console.WriteLine("Podaj filtr: czas trwania zlecenia");
-        //    TimeSpan duration = TimeSpan.Parse(Console.ReadLine());
-        //    var filterCriterion = "Duration";
-
-        //    var resultList = _filtersService.FilterBy(filterCriterion, duration, _orderList);
-        //    return resultList;
-        //}
-
-        //private List<Order> EnterEndDateFilter()
-        //{
-        //    Console.WriteLine("Podaj filtr: data początkowa");
-        //    DateTime endDate = DateTime.Parse(Console.ReadLine());
-        //    var resultList = _filtersService.FilterByEndDate(endDate, _orderList);
-        //    return resultList;
-        //}
-
-        //private List<Order> EnterStartDateFilter()
-        //{
-        //    Console.WriteLine("Podaj filtr: data początkowa");
-        //    DateTime startDate = DateTime.Parse(Console.ReadLine());
-        //    var resultList = _filtersService.FilterByStartDate(startDate, _orderList);
-        //    return resultList;
-        //}
     }
 }

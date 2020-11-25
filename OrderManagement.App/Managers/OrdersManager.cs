@@ -10,9 +10,9 @@ namespace OrderManagement.App.Managers
     public class OrdersManager
     {
         private OrdersService _ordersService;
-        public OrdersManager()
+        public OrdersManager(OrdersService ordersService)
         {
-            _ordersService = new OrdersService();
+            _ordersService = ordersService;
         }
 
         public Order CreateNewOrder()

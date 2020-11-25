@@ -64,7 +64,7 @@ namespace OrderManagement.App.Concrete
 
         public bool StatusToCancel(int id)
         {
-            Order canceledOrder = GetItemById(id);
+            var canceledOrder = GetItemById(id);
             if (canceledOrder.OrderStatus == "W realizacji" || canceledOrder.OrderStatus == "W kolejce")
             {
                 canceledOrder.OrderStatus = "Anulowane";
