@@ -23,55 +23,60 @@ namespace OrderManagement.App.Managers
             Console.WriteLine($"Numer zlecenia: {id}");
 
             Console.WriteLine("Podaj imię i nazwisko Klienta: ");
-            string input = Console.ReadLine();
-            string name = input.ToUpper();
+            string inputName = Console.ReadLine();
+            string name = inputName.ToUpper();
 
 
             Console.WriteLine("Podaj datę rozpoczęcia zlecenia: dd/mm/rrrr");
-            var startDate = DateTime.Parse(Console.ReadLine());
+            DateTime startDate;
+            while (!DateTime.TryParse(Console.ReadLine(), out startDate))
+            {
+                Console.WriteLine("Podaj właściwy format daty");
+            }
 
             Console.WriteLine("Podaj datę zakończenia zlecenia: dd/mm/rrrr");
-            var endDate = DateTime.Parse(Console.ReadLine());
-            bool validDate = _ordersService.CheckEndDate(endDate, startDate);
-            if (!validDate)
+            DateTime endDate;
+            while (!DateTime.TryParse(Console.ReadLine(), out endDate) || !_ordersService.CheckEndDate(endDate, startDate))
             {
-                Console.WriteLine("Wprowadzona data zakończenia zlecenia nie może być wcześniejsza niż rozpoczęcia.");
+                Console.WriteLine("Wprowadź właściwy format daty. Pamiętaj, że data końcowa nie może być wcześniejsza niż początkowa.");
             }
 
             TimeSpan duration = endDate - startDate;
 
             Console.WriteLine("Podaj adres zlecenia: miasto/ulica/numer domu");
-            string orderAddress = Console.ReadLine();
+            string inputAddress = Console.ReadLine();
+            string orderAddress = inputAddress.ToUpper();
 
             Console.WriteLine("Podaj dane kontaktowe:");
             string contact = Console.ReadLine();
-
-            bool validPhoneNumber = _ordersService.CheckContactDetails(contact);
-            if (!validPhoneNumber)
+            if (!_ordersService.CheckContactDetails(contact))
             {
-                Console.WriteLine("Błędny format numeru telefonu.");
+                Console.WriteLine("Błędny format numeru telefonu. Podaj jeszcze raz:");
+                contact = Console.ReadLine();
             }
 
             Console.WriteLine("Podaj szczegóły zlecenia:");
             string orderDescription = Console.ReadLine();
 
             Console.WriteLine("Podaj wartość zlecenia:");
-            double orderValue = Double.Parse(Console.ReadLine());
-            bool validValue = _ordersService.CheckValue(orderValue);
-            if (!validValue)
+            double orderValue;
+            if (!Double.TryParse(Console.ReadLine(), out orderValue) || !_ordersService.CheckValue(orderValue))
             {
-                Console.WriteLine("Wartość zlecenia musi być większa od zera.");
+                Console.WriteLine("Wprowadź właściwą wartość zlecenia, która musi być większa od zera.");
             }
 
             Console.WriteLine($"Podaj status zlecenia: \r\n 1. W kolejce \r\n 2.W realizacji \r\n 3.Zakończone");
-            var operation = Int32.Parse(Console.ReadLine());
-            string orderStatus = _ordersService.SetTheOrderStatus(operation); //czy tu nie zmienić logiki??
+            int operation;
+            if (!Int32.TryParse(Console.ReadLine(), out operation) || !_ordersService.CheckChoosenOperation(operation))
+            {
+                Console.WriteLine("Podaj właściwy numer operacji: 1, 2 lub 3.");
+            }
+            string orderStatus = _ordersService.SetTheOrderStatus(operation);
             Console.WriteLine($"{orderStatus}");
 
             Console.WriteLine("Podaj ilu pracowników wykonywało zlecenie:");
-            int numberEmployees = Int32.Parse(Console.ReadLine());
-            bool validEmployees = _ordersService.CheckEmployees(numberEmployees);
-            if (!validEmployees)
+            int numberEmployees;
+            if (!Int32.TryParse(Console.ReadLine(), out numberEmployees) || !_ordersService.CheckEmployees(numberEmployees))
             {
                 Console.WriteLine("Liczba pracowników musi być większa od 0!");
             }
@@ -81,23 +86,45 @@ namespace OrderManagement.App.Managers
 
             return order;
         }
-        
+
         public bool CancelOrder()
         {
             Console.WriteLine("Podaj numer zlecenia do anulowania:");
-            int id = Int32.Parse(Console.ReadLine());
-            bool canceled = _ordersService.StatusToCancel(id);
-            if (canceled)
+            int id;
+            if (!Int32.TryParse(Console.ReadLine(), out id))
             {
-                Console.WriteLine($"Zlecenie numer: {id} zostało anulowane.");
+                Console.WriteLine("Podany format numeru zlecenia jest niewłaściwy.");
             }
-            return canceled;
+
+            Order orderToCancel = _ordersService.GetItemById(id);
+            if (orderToCancel != null)
+            {
+                if (_ordersService.StatusToCancel(orderToCancel))
+                {
+                    Console.WriteLine($"Zlecenie numer: {id} zostało anulowane.");
+                    return true;
+                }
+                else
+                {
+                    Console.WriteLine($"Nie można anulować tego zlecenia, gdyż jego status to {orderToCancel.OrderStatus}.");
+                    return false;
+                }
+            }
+            else
+            {
+                Console.WriteLine($"Zlecenie o numerze {id} nie istnieje.");
+                return false;
+            }
         }
 
         public Order SearchOrder()
         {
             Console.WriteLine("Podaj numer zlecenia:");
-            int id = Int32.Parse(Console.ReadLine());
+            int id;
+            if (!Int32.TryParse(Console.ReadLine(), out id))
+            {
+                Console.WriteLine("Podany format numeru zlecenia jest niewłaściwy.");
+            }
             var searchedOrder = _ordersService.GetItemById(id);
             if (searchedOrder != null)
             {
@@ -105,6 +132,11 @@ namespace OrderManagement.App.Managers
                     $"Czas trwania zlecenia: {searchedOrder.Duration}\r\n Adres: {searchedOrder.Address}\r\n Dane kontakowe: {searchedOrder.ContactDetails}\r\n" +
                     $"Opis zlecenia: {searchedOrder.OrderDescription}\r\n Wartość zlecenia w zł: {searchedOrder.OrderValue}\r\n Status zlecenia: {searchedOrder.OrderStatus}\r\n " +
                     $"Ilość pracowników wykonujących zlecenie: {searchedOrder.NumberOfEmployees}");
+            }
+            else
+            {
+                Console.WriteLine($"Zlecenie o numerze {id} nie istnieje.");
+
             }
             return searchedOrder;
         }

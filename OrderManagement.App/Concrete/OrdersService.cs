@@ -9,7 +9,7 @@ namespace OrderManagement.App.Concrete
 {
     public class OrdersService : BaseService<Order>
     {
-        
+      
         public bool CheckEndDate(DateTime endDate, DateTime startDate)
         {
             if (endDate < startDate)
@@ -53,6 +53,13 @@ namespace OrderManagement.App.Concrete
             return "Error";
 
         }
+        public bool CheckChoosenOperation(int operation)
+        {
+            if (operation > 0 && operation < 4)
+                return true;
+            else
+                return false;
+        }
 
         public bool CheckEmployees(int numberEmployees)
         {
@@ -62,12 +69,11 @@ namespace OrderManagement.App.Concrete
                 return true;
         }
 
-        public bool StatusToCancel(int id)
+        public bool StatusToCancel(Order orderToCancel)
         {
-            var canceledOrder = GetItemById(id);
-            if (canceledOrder.OrderStatus == "W realizacji" || canceledOrder.OrderStatus == "W kolejce")
+            if (orderToCancel.OrderStatus == "W realizacji" || orderToCancel.OrderStatus == "W kolejce")
             {
-                canceledOrder.OrderStatus = "Anulowane";
+                orderToCancel.OrderStatus = "Anulowane";
                 return true;
             }
             else

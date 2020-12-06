@@ -56,12 +56,14 @@ namespace OrderManagement.App.Managers
                     break;
             }
         }
+
         public List<Order> EnterEmployeesFilter()
         {
             Console.WriteLine("Podaj filtr: Ilość pracowników wykonujących zlecenie");
             int employees = Int32.Parse(Console.ReadLine());
             var filterCriterion = "NumberOfEmployees";
             List<Order> resultList = _filtersService.FilterBy(filterCriterion, employees, _ordersList);
+            ShowOrders(resultList);
             return resultList;
         }
 
@@ -71,6 +73,7 @@ namespace OrderManagement.App.Managers
             string status = Console.ReadLine();
             var filterCriterion = "OrderStatus";
             List<Order> resultList = _filtersService.FilterBy(filterCriterion, status, _ordersList);
+            ShowOrders(resultList);
             return resultList;
         }
 
@@ -80,6 +83,7 @@ namespace OrderManagement.App.Managers
             double value = Double.Parse(Console.ReadLine());
             var filterCriterion = "OrderValue";
             List<Order> resultList = _filtersService.FilterBy(filterCriterion, value, _ordersList);
+            ShowOrders(resultList);
             return resultList;
         }
 
@@ -89,6 +93,7 @@ namespace OrderManagement.App.Managers
             string address = Console.ReadLine();
             var filterCriterion = "Address";
             List<Order> resultList = _filtersService.FilterBy(filterCriterion, address, _ordersList);
+            ShowOrders(resultList);
             return resultList;
         }
 
@@ -98,6 +103,7 @@ namespace OrderManagement.App.Managers
             TimeSpan duration = TimeSpan.Parse(Console.ReadLine());
             var filterCriterion = "Duration";
             List<Order> resultList = _filtersService.FilterBy(filterCriterion, duration, _ordersList);
+            ShowOrders(resultList);
             return resultList;
         }
 
@@ -107,6 +113,7 @@ namespace OrderManagement.App.Managers
             DateTime endDate = DateTime.Parse(Console.ReadLine());
             string filterCriterion = "EndDate";
             List<Order> resultList = _filtersService.FilterBy(filterCriterion, endDate, _ordersList);
+            ShowOrders(resultList);
             return resultList;
         }
 
@@ -116,6 +123,7 @@ namespace OrderManagement.App.Managers
             DateTime startDate = DateTime.Parse(Console.ReadLine());
             string filterCriterion = "StartDate";
             List<Order> resultList = _filtersService.FilterBy(filterCriterion, startDate, _ordersList);
+            ShowOrders(resultList);
             return resultList;
         }
 
@@ -126,7 +134,28 @@ namespace OrderManagement.App.Managers
             string name = input.ToUpper();
             string filterCriterion = "Name";
             List<Order> resultList = _filtersService.FilterBy(filterCriterion, name, _ordersList);
+            ShowOrders(resultList);
             return resultList;
+        }
+
+        public void ShowOrders(List<Order> orderList)
+        {
+            if (orderList == null)
+            {
+                Console.WriteLine("Lista zleceń spełniającuch podane kryteria jest pusta.");
+            }
+            else
+            {
+                foreach (var order in orderList)
+                {
+                    Console.WriteLine($"Numer zlecenia: {order.Id}\r\n Data początkowa: {order.StartDate}\r\n Data końcowa: {order.EndDate}\r\n " +
+                         $"Czas trwania zlecenia: {order.Duration}\r\n Adres: {order.Address}\r\n Dane kontakowe: {order.ContactDetails}\r\n" +
+                         $"Opis zlecenia: {order.OrderDescription}\r\n Wartość zlecenia w zł: {order.OrderValue}\r\n Status zlecenia: {order.OrderStatus}\r\n " +
+                         $"Ilość pracowników wykonujących zlecenie: {order.NumberOfEmployees}");
+                }
+            }
+
+
         }
 
     }

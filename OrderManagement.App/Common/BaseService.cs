@@ -27,7 +27,7 @@ namespace OrderManagement.App.Common
             return Items;
         }
 
-        public List<T> ShowItems()
+        public  List<T> ShowItems()
         {
             foreach (var obj in Items)
             {
@@ -52,7 +52,13 @@ namespace OrderManagement.App.Common
 
         public T GetItemById(int id)
         {
-            return Items.Find(x => x.Id == id);
+            T item = Items.Find(x => x.Id == id);
+            if (item == null)
+            {
+                throw new NullReferenceException("Choosen item is null.");
+            }
+            else
+                return item;
         }
 
     }

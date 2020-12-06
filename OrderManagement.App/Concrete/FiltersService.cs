@@ -1,6 +1,8 @@
 ﻿using OrderManagement.App.Common;
 using OrderManagement.Domain.Entity;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using W2L20;
 
 
@@ -36,7 +38,12 @@ namespace OrderManagement.App.Concrete
                 if (property.Equals(criterionValue))
                     resultList.Add(item);
             }
-            return resultList;
+            if (resultList.Count() == 0)
+            {
+                throw new NullReferenceException("List is empty.");
+            }
+            else
+                return resultList;
         }
 
     }
