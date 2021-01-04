@@ -1,7 +1,9 @@
-﻿using OrderManagement.App.Common;
+﻿using Newtonsoft.Json;
+using OrderManagement.App.Common;
 using OrderManagement.Domain.Entity;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using W2L20;
 
@@ -46,5 +48,13 @@ namespace OrderManagement.App.Concrete
                 return resultList;
         }
 
+        public void SaveReportToFile(List<Order> filteredList, string filterCriterion)
+        {
+            string fileName = filterCriterion;
+            string creationDate = DateTime.Now.ToString("yyyy-MM-dd_hh-mm-ss-tt");
+
+            File.WriteAllText(@"C:\Users\malki\source\repos\W2L20-Order-Management\Temp\" + fileName + @"_" + creationDate + @".txt",
+                JsonConvert.SerializeObject(filteredList, Formatting.Indented));
+        }
     }
 }

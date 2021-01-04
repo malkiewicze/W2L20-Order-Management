@@ -1,9 +1,7 @@
-﻿using OrderManagement.App.Common;
-using OrderManagement.App.Concrete;
+﻿using OrderManagement.App.Concrete;
 using OrderManagement.Domain.Entity;
 using System;
-using System.Collections.Generic;
-using System.Text;
+
 
 namespace OrderManagement.App.Managers
 {
@@ -56,7 +54,8 @@ namespace OrderManagement.App.Managers
             }
 
             Console.WriteLine("Podaj szczegóły zlecenia:");
-            string orderDescription = Console.ReadLine();
+            string inputDescription = Console.ReadLine();
+            string orderDescription = inputDescription.ToUpper();
 
             Console.WriteLine("Podaj wartość zlecenia:");
             double orderValue;
@@ -65,7 +64,7 @@ namespace OrderManagement.App.Managers
                 Console.WriteLine("Wprowadź właściwą wartość zlecenia, która musi być większa od zera.");
             }
 
-            Console.WriteLine($"Podaj status zlecenia: \r\n 1. W kolejce \r\n 2.W realizacji \r\n 3.Zakończone");
+            Console.WriteLine($"Podaj status zlecenia: \r\n 1.W kolejce \r\n 2.W realizacji \r\n 3.Zakończone");
             int operation;
             if (!Int32.TryParse(Console.ReadLine(), out operation) || !_ordersService.CheckChoosenOperation(operation))
             {
@@ -83,9 +82,12 @@ namespace OrderManagement.App.Managers
 
             Order order = new Order(id, name, startDate, endDate, duration, orderAddress, contact, orderDescription, orderValue, orderStatus, numberEmployees);
             _ordersService.AddNewItem(order);
+            _ordersService.SaveToFile();
 
             return order;
         }
+
+        
 
         public bool CancelOrder()
         {

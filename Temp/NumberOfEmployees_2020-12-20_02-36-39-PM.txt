@@ -1,0 +1,1 @@
+[{"StartDate":"2020-11-23T00:00:00","EndDate":"2020-11-30T00:00:00","Duration":"7.00:00:00","Address":"KATOWICE","ContactDetails":"666999555","OrderDescription":"MALOWANIE","OrderValue":500.0,"OrderStatus":"Zakończone","NumberOfEmployees":2,"Name":"EWA M","Id":1}]

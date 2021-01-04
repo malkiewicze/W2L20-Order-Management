@@ -1,7 +1,9 @@
-﻿using OrderManagement.App.Common;
+﻿using Newtonsoft.Json;
+using OrderManagement.App.Common;
 using OrderManagement.Domain.Entity;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -9,7 +11,23 @@ namespace OrderManagement.App.Concrete
 {
     public class OrdersService : BaseService<Order>
     {
-      
+        public void LoadFromFile()
+        {
+            string readText = File.ReadAllText(@"C:\Users\malki\source\repos\W2L20-Order-Management\Temp\startingList.txt");
+            var files = JsonConvert.DeserializeObject<List<Order>>(readText);
+            foreach(var file in files)
+            {
+                AddNewItem(file);
+            }
+            
+        }
+        public void SaveToFile()
+        {
+            List<Order> ordersList = GetAllItems();
+            File.WriteAllText(@"C:\Users\malki\source\repos\W2L20-Order-Management\Temp\ordersList.txt",
+                JsonConvert.SerializeObject(ordersList, Formatting.Indented));
+        }
+
         public bool CheckEndDate(DateTime endDate, DateTime startDate)
         {
             if (endDate < startDate)

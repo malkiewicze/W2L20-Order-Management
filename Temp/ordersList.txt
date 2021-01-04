@@ -1,0 +1,54 @@
+[
+  {
+    "StartDate": "2020-11-23T00:00:00",
+    "EndDate": "2020-11-30T00:00:00",
+    "Duration": "7.00:00:00",
+    "Address": "KATO",
+    "ContactDetails": "444888999",
+    "OrderDescription": "MALOWANIE",
+    "OrderValue": 500.0,
+    "OrderStatus": "Zakończone",
+    "NumberOfEmployees": 2,
+    "Name": "EWA M",
+    "Id": 1
+  },
+  {
+    "StartDate": "2020-12-11T00:00:00",
+    "EndDate": "2020-12-14T00:00:00",
+    "Duration": "3.00:00:00",
+    "Address": "MYSŁOWICE",
+    "ContactDetails": "444777888",
+    "OrderDescription": "KAFELKOWANIE",
+    "OrderValue": 5000.0,
+    "OrderStatus": "Zakończone",
+    "NumberOfEmployees": 3,
+    "Name": "DANIEL POP",
+    "Id": 2
+  },
+  {
+    "StartDate": "2020-12-20T00:00:00",
+    "EndDate": "2020-12-24T00:00:00",
+    "Duration": "4.00:00:00",
+    "Address": "SOSNOWIEC",
+    "ContactDetails": "555888999",
+    "OrderDescription": "ŚCIANKA DZIAŁOWA",
+    "OrderValue": 1200.0,
+    "OrderStatus": "W realizacji",
+    "NumberOfEmployees": 2,
+    "Name": "HENRYK PRUKAŁA",
+    "Id": 3
+  },
+  {
+    "StartDate": "2021-01-01T00:00:00",
+    "EndDate": "2021-01-03T00:00:00",
+    "Duration": "2.00:00:00",
+    "Address": "KATOWICE",
+    "ContactDetails": "555666333",
+    "OrderDescription": "MALOWANIE",
+    "OrderValue": 500.0,
+    "OrderStatus": "Zakończone",
+    "NumberOfEmployees": 1,
+    "Name": "EWA ",
+    "Id": 4
+  }
+]

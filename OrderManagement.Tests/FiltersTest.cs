@@ -26,12 +26,23 @@ namespace OrderManagement.Tests
             FiltersService service = new FiltersService();
 
             var result = service.FilterBy("Address", "Katowice", listOrder);
-            
 
             result.Should().Contain(order1);
             result.Should().Contain(order3);
             result.Should().HaveCount(2);
-            Assert.Throws<NullReferenceException>(() => service.FilterBy("Name", "Daniel", listOrder));
+        }
+
+        [Fact]
+        public void FilterByTestFailed()
+        {
+            Order order1 = new Order(2, "Zygmunt", new DateTime(2020, 11, 01), new DateTime(2020, 11, 14), new TimeSpan(13), "Bytom", "696778441", "kafelkowanie", 5000, "W realizacji", 3);
+            Order order2 = new Order(3, "Dawid", new DateTime(2020, 11, 01), new DateTime(2020, 11, 10), new TimeSpan(9), "Katowice", "542355691", "gładzie", 2400, "W realizacji", 2);
+            List<Order> listOrder1 = new List<Order>();
+            listOrder1.Add(order1);
+            listOrder1.Add(order2);
+            FiltersService service = new FiltersService();
+
+            Assert.Throws<NullReferenceException>(() => service.FilterBy("Name", "Daniel", listOrder1));
         }
     }
 }

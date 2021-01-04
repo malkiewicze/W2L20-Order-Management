@@ -1,9 +1,8 @@
-﻿using OrderManagement.App.Common;
-using OrderManagement.App.Concrete;
+﻿using OrderManagement.App.Concrete;
 using OrderManagement.Domain.Entity;
 using System;
 using System.Collections.Generic;
-using W2L20;
+
 
 namespace OrderManagement.App.Managers
 {
@@ -57,13 +56,15 @@ namespace OrderManagement.App.Managers
             }
         }
 
+       
         public List<Order> EnterEmployeesFilter()
         {
             Console.WriteLine("Podaj filtr: Ilość pracowników wykonujących zlecenie");
             int employees = Int32.Parse(Console.ReadLine());
-            var filterCriterion = "NumberOfEmployees";
+            string filterCriterion = "NumberOfEmployees";
             List<Order> resultList = _filtersService.FilterBy(filterCriterion, employees, _ordersList);
             ShowOrders(resultList);
+            _filtersService.SaveReportToFile(resultList, filterCriterion);
             return resultList;
         }
 
@@ -71,9 +72,10 @@ namespace OrderManagement.App.Managers
         {
             Console.WriteLine("Podaj filtr: Status zlecenia");
             string status = Console.ReadLine();
-            var filterCriterion = "OrderStatus";
+            string filterCriterion = "OrderStatus";
             List<Order> resultList = _filtersService.FilterBy(filterCriterion, status, _ordersList);
             ShowOrders(resultList);
+            _filtersService.SaveReportToFile(resultList, filterCriterion);
             return resultList;
         }
 
@@ -81,9 +83,10 @@ namespace OrderManagement.App.Managers
         {
             Console.WriteLine("Podaj filtr: Wartość zlecenia");
             double value = Double.Parse(Console.ReadLine());
-            var filterCriterion = "OrderValue";
+            string filterCriterion = "OrderValue";
             List<Order> resultList = _filtersService.FilterBy(filterCriterion, value, _ordersList);
             ShowOrders(resultList);
+            _filtersService.SaveReportToFile(resultList, filterCriterion);
             return resultList;
         }
 
@@ -91,9 +94,10 @@ namespace OrderManagement.App.Managers
         {
             Console.WriteLine("Podaj filtr: Adres");
             string address = Console.ReadLine();
-            var filterCriterion = "Address";
+            string filterCriterion = "Address";
             List<Order> resultList = _filtersService.FilterBy(filterCriterion, address, _ordersList);
             ShowOrders(resultList);
+            _filtersService.SaveReportToFile(resultList, filterCriterion);
             return resultList;
         }
 
@@ -101,9 +105,10 @@ namespace OrderManagement.App.Managers
         {
             Console.WriteLine("Podaj filtr: Czas trwania zlecenia");
             TimeSpan duration = TimeSpan.Parse(Console.ReadLine());
-            var filterCriterion = "Duration";
+            string filterCriterion = "Duration";
             List<Order> resultList = _filtersService.FilterBy(filterCriterion, duration, _ordersList);
             ShowOrders(resultList);
+            _filtersService.SaveReportToFile(resultList, filterCriterion);
             return resultList;
         }
 
@@ -114,6 +119,7 @@ namespace OrderManagement.App.Managers
             string filterCriterion = "EndDate";
             List<Order> resultList = _filtersService.FilterBy(filterCriterion, endDate, _ordersList);
             ShowOrders(resultList);
+            _filtersService.SaveReportToFile(resultList, filterCriterion);
             return resultList;
         }
 
@@ -124,6 +130,7 @@ namespace OrderManagement.App.Managers
             string filterCriterion = "StartDate";
             List<Order> resultList = _filtersService.FilterBy(filterCriterion, startDate, _ordersList);
             ShowOrders(resultList);
+            _filtersService.SaveReportToFile(resultList, filterCriterion);
             return resultList;
         }
 
@@ -135,6 +142,7 @@ namespace OrderManagement.App.Managers
             string filterCriterion = "Name";
             List<Order> resultList = _filtersService.FilterBy(filterCriterion, name, _ordersList);
             ShowOrders(resultList);
+            _filtersService.SaveReportToFile(resultList, filterCriterion);
             return resultList;
         }
 

@@ -16,6 +16,7 @@ namespace W2L20
             FiltersService filtersService = new FiltersService();
             OrdersManager ordersManager = new OrdersManager(ordersService);
             FiltersManager filtersManager = new FiltersManager(ordersService);
+            ordersService.LoadFromFile();
 
             Console.WriteLine("Witaj w aplikacji do zarządzania zleceniami.");
             while (true)

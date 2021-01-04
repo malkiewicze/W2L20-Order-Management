@@ -1,0 +1,28 @@
+[
+  {
+    "StartDate": "2020-11-23T00:00:00",
+    "EndDate": "2020-11-30T00:00:00",
+    "Duration": "7.00:00:00",
+    "Address": "KATO",
+    "ContactDetails": "444888999",
+    "OrderDescription": "MALOWANIE",
+    "OrderValue": 500.0,
+    "OrderStatus": "Zakończone",
+    "NumberOfEmployees": 2,
+    "Name": "EWA M",
+    "Id": 1
+  },
+  {
+    "StartDate": "2020-12-20T00:00:00",
+    "EndDate": "2020-12-24T00:00:00",
+    "Duration": "4.00:00:00",
+    "Address": "SOSNOWIEC",
+    "ContactDetails": "555888999",
+    "OrderDescription": "ŚCIANKA DZIAŁOWA",
+    "OrderValue": 1200.0,
+    "OrderStatus": "W realizacji",
+    "NumberOfEmployees": 2,
+    "Name": "HENRYK PRUKAŁA",
+    "Id": 3
+  }
+]
