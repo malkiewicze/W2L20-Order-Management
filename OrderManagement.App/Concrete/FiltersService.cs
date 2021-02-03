@@ -52,9 +52,18 @@ namespace OrderManagement.App.Concrete
         {
             string fileName = filterCriterion;
             string creationDate = DateTime.Now.ToString("yyyy-MM-dd_hh-mm-ss-tt");
-
-            File.WriteAllText(@"C:\Users\malki\source\repos\W2L20-Order-Management\Temp\" + fileName + @"_" + creationDate + @".txt",
-                JsonConvert.SerializeObject(filteredList, Formatting.Indented));
+            var folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Reports");
+            if (!Directory.Exists(folder))
+            {
+                Directory.CreateDirectory(folder);
+                var file = Path.Combine(folder, fileName + creationDate + ".txt");
+                File.WriteAllText(file, JsonConvert.SerializeObject(filteredList, Formatting.Indented));
+            }
+            else
+            {
+                var file = Path.Combine(folder, fileName + creationDate +".txt");
+                File.WriteAllText(file, JsonConvert.SerializeObject(filteredList, Formatting.Indented));
+            }
         }
     }
 }

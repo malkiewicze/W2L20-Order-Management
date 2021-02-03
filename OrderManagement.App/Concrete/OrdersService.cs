@@ -13,19 +13,39 @@ namespace OrderManagement.App.Concrete
     {
         public void LoadFromFile()
         {
-            string readText = File.ReadAllText(@"C:\Users\malki\source\repos\W2L20-Order-Management\Temp\startingList.txt");
-            var files = JsonConvert.DeserializeObject<List<Order>>(readText);
-            foreach(var file in files)
+            var folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "startingList.txt");
+            if (Directory.Exists(folder))
             {
-                AddNewItem(file);
+                string readText = File.ReadAllText(folder);
+                var files = JsonConvert.DeserializeObject<List<Order>>(readText);
+                foreach (var file in files)
+                {
+                    AddNewItem(file);
+                }
             }
-            
+            else
+            {
+                Console.WriteLine("Directory with staring list not found!!!");
+            }
         }
+
         public void SaveToFile()
         {
             List<Order> ordersList = GetAllItems();
-            File.WriteAllText(@"C:\Users\malki\source\repos\W2L20-Order-Management\Temp\ordersList.txt",
-                JsonConvert.SerializeObject(ordersList, Formatting.Indented));
+            var folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Reports");
+            if (!Directory.Exists(folder))
+            {
+                Directory.CreateDirectory(folder);
+                var file = Path.Combine(folder, "ordersList.txt");
+                File.WriteAllText(file,
+               JsonConvert.SerializeObject(ordersList, Formatting.Indented));
+            }
+            else
+            {
+                var file = Path.Combine(folder, "ordersList.txt");
+                File.WriteAllText(file,
+               JsonConvert.SerializeObject(ordersList, Formatting.Indented));
+            }
         }
 
         public bool CheckEndDate(DateTime endDate, DateTime startDate)
